@@ -1,18 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule }    from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './routing/routing.module';
+import { HomeComponent } from './routing/pages/home/home.component';
+import { CalculatorService } from './services/calculator.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [CalculatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

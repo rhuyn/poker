@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/variables';
+
+button{
+    background-color: $main-colour;
+    border: $button-border;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    font: $text-font;
+    color: $primary-white;
+    border-radius: 10px;
+}
+button:focus{
+    outline: none !important;
+}
+button:active{
+    border: $button-border-active;
+}
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

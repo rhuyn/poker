@@ -1,0 +1,20 @@
+$breakpoints: (
+  'mobile':  425px,
+  'tablet': 768px,
+  'laptop':  1024px
+);
+
+$main-colour: #5588EE;
+$primary-white: #FFFFFF;
+$error-colour: #FF4500;
+
+$header-font: 72px bold arial, sans-serif;
+
+$subheader-font: 16px bold arial, sans-serif;
+
+$text-font: 12px arial, sans-serif;
+$input-border-active: inset 2px $main-colour;
+$input-border-error: inset 2px $error-colour;
+
+$button-border: outset 3px $main-colour;
+$button-border-active: inset 3px $main-colour;
