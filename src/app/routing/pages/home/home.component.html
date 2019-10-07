@@ -1,7 +1,5 @@
 <div class='container'>
   <h1 class='header'>{{header}}</h1>
-  <h3 class='subheader'>{{subheader}}</h3>
-  <p *ngIf="error" class='error-message'>{{errorMessage}}</p>
-  <textarea [(ngModel)]='input' [ngClass]="{'error':error}" class='input' placeholder={{inputPlaceholder}} rows="10" (change)="resetError()"></textarea>
-  <button (click)="calculate()" [disabled]="buttonDisabled">{{buttonText}}</button>
+  <app-user-input *ngIf="!displayResults" [input]="input" (calculateClick)="calculate($event)"></app-user-input>
+  <app-results *ngIf="displayResults" [results]="results" (backClicked)="goBack()"></app-results>
 </div>

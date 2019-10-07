@@ -1,0 +1,20 @@
+@import '../../../assets/styles/variables';
+
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subheader{
+    font: $subheader-font;
+}
+
+.results{
+    font: $text-font;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    border: $border-grey;
+}

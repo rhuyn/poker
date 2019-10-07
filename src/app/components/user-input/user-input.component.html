@@ -1,0 +1,6 @@
+<div class='container'>
+  <h3 class='subheader'>{{subheader}}</h3>
+  <p *ngIf="error" class='error-message'>{{errorMessage}}</p>
+  <textarea [(ngModel)]='input' [ngClass]="{'error':error}" class='input' placeholder={{inputPlaceholder}} (change)="resetError()"></textarea>
+  <button (click)="calculateClicked()" [disabled]="buttonDisabled">{{buttonCalculate}}</button>
+</div>
