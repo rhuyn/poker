@@ -5,7 +5,8 @@ export enum Hands {
    THREEOFAKIND,
    STRAIGHT,
    FULLHOUSE,
-   FOUROFAKIND 
+   FOUROFAKIND,
+   FIVEOFAKIND
 }
 
 export enum Winner {

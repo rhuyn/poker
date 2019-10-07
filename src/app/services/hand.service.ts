@@ -17,20 +17,20 @@ K3452 K5432
 K9872 AJT23
 */
 
+
   /**
-   * Compare two hands of the same type and return the bigger hand. Handles four of a kind, three of a kind, and full house 
+   * Compare two hands of the same type and return the bigger hand. Handles four of a kind and five of a kind.
    * @param {number[]} first 
-   * @param {number[]} second 
-   * @param {number} compareFreq
+   * @param {number[]} second
+   * @param {number} compareFreq  
    * @returns {Winner} 
    */
-  public compareThreeOrMore(first:number[], second:number[], compareFreq: number): Winner{
-    let hashOne:any = this._getHandHash(first);
-    let hashTwo:any = this._getHandHash(second);
+  public compareFourOrMore(first:number[], second:number[], compareFreq: number): Winner{
+    let hashOne:any = this.getHandHash(first);
+    let hashTwo:any = this.getHandHash(second);
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
-    let valOne:number;
-    let valTwo:number;
+    let valOne, valTwo:number;
     for(let i = 0; i < keysOne.length; i++){
       if(hashOne[keysOne[i]] === compareFreq){
         valOne = parseInt(keysOne[i]);
@@ -42,6 +42,80 @@ K9872 AJT23
     return this.getHigher(valOne, valTwo);
   }
 
+  
+  /**
+   * Compare two hands of the same type and return the bigger hand. Handles full house.
+   * @param {number[]} first 
+   * @param {number[]} second 
+   * @returns {Winner} 
+   */
+  public compareFullHouse(first:number[], second:number[]): Winner{
+    let hashOne:any = this.getHandHash(first);
+    let hashTwo:any = this.getHandHash(second);
+    let keysOne = Object.keys(hashOne);
+    let keysTwo = Object.keys(hashTwo);
+    let valOne, valTwo:number;
+    let pairOne, pairTwo:number;
+    for(let i = 0; i < keysOne.length; i++){
+      if(hashOne[keysOne[i]] === 3){
+        valOne = parseInt(keysOne[i]);
+      } else{
+        pairOne = parseInt(keysOne[i]);
+      }
+      if(hashTwo[keysTwo[i]] === 3){
+        valTwo = parseInt(keysTwo[i]);
+      } else{
+        pairTwo = parseInt(keysTwo[i]);
+      }
+    }
+    let result = this.getHigher(valOne,valTwo);
+    if(result === Winner.TIED){
+      result = this.getHigher(pairOne,pairTwo);
+    }
+    return result;
+  }
+
+  /**
+   * Compare two hands of the same type and return the bigger hand. Handles three of a kind.
+   * @param {number[]} first 
+   * @param {number[]} second 
+   * @returns {Winner} 
+   */
+  public compareThreeOfAKind(first:number[], second:number[]): Winner{
+    let hashOne:any = this.getHandHash(first);
+    let hashTwo:any = this.getHandHash(second);
+    let keysOne = Object.keys(hashOne);
+    let keysTwo = Object.keys(hashTwo);
+    let valOne, valTwo:number;
+    let bigOne, bigTwo, smallOne, smallTwo: number = 0;
+    for(let i = 0; i < keysOne.length; i++){
+      if(hashOne[keysOne[i]] === 3){
+        valOne = parseInt(keysOne[i]);
+      } else{
+        if(bigOne < keysOne[i]){
+          bigOne = keysOne[i];
+          smallOne= bigOne;
+        }
+      }
+      if(hashTwo[keysTwo[i]] === 3){
+        valTwo = parseInt(keysTwo[i]);
+      } else{
+        if(bigTwo < keysTwo[i]){
+          bigTwo = keysTwo[i];
+          smallTwo= bigTwo;
+        }
+      }
+    }
+    let results = this.getHigher(valOne, valTwo);
+    if(results === Winner.TIED){
+      results = this.getHigher(bigOne, bigTwo);
+      if(results === Winner.TIED){
+        results = this.getHigher(smallOne, smallTwo);
+      }
+    }
+    return results;
+  }
+
   /**
    * Compares two hands with straight for the bigger hand
    * @param {number[]} first 
@@ -51,8 +125,7 @@ K9872 AJT23
   public compareStraight(first:number[], second:number[]):Winner{
     first = this._sortCards(first);
     second = this._sortCards(second);
-    let firstMax: number;
-    let secondMax: number;
+    let firstMax, secondMax: number;
     if(first[0] === 2 && first[4] === 14){
       firstMax = 5;
     } else{
@@ -73,14 +146,12 @@ K9872 AJT23
    * @returns {Winner} 
    */
   public compareTwoPairs(first:number[], second:number[]):Winner{
-    let hashOne:any = this._getHandHash(first);
-    let hashTwo:any = this._getHandHash(second);
+    let hashOne:any = this.getHandHash(first);
+    let hashTwo:any = this.getHandHash(second);
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
-    let pairsOne: number[]=[]; 
-    let pairsTwo: number[]=[];
-    let singleOne: number;
-    let singleTwo: number;
+    let pairsOne, pairsTwo: number[]=[]; 
+    let singleOne, singleTwo: number;
     keysOne.forEach((key:string)=>{
       if(hashOne[key] === 2){
         pairsOne.push(parseInt(key));
@@ -116,14 +187,12 @@ K9872 AJT23
   public compareOnePair(first:number[], second:number[]):Winner{
     //compare two with pair
     //compare highest number
-    let hashOne:any = this._getHandHash(first);
-    let hashTwo:any = this._getHandHash(second);
+    let hashOne:any = this.getHandHash(first);
+    let hashTwo:any = this.getHandHash(second);
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
-    let pairOne: number; 
-    let pairTwo: number;
-    let singleOne: number[] = [];
-    let singleTwo: number[] = [];
+    let pairOne, pairTwo: number; 
+    let singleOne, singleTwo: number[] = [];
     keysOne.forEach((key:string)=>{
       if(hashOne[key] === 2){
         pairOne = parseInt(key);
@@ -162,12 +231,9 @@ K9872 AJT23
     //comapre with highest number, if ACE,
     first = this._sortCards(first);
     second = this._sortCards(second);
-    console.log(first + " " + second);
-    
     let result: Winner;
     for(let i = 4; i >= 0; i--){
       result = this.getHigher(first[i], second[i]);
-      console.log(first[i] + " " + second[i] + " " + result);
       if(result !== Winner.TIED){
         break;
       }
@@ -180,25 +246,14 @@ K9872 AJT23
    * @param {number[]} hand
    * @returns {any} 
    */
-  private _getHandHash(hand:number[]):any{
+  public getHandHash(hand:number[]):any{
     let hash:any = {};
     hand.forEach((item:number)=>{
       item in hash ? hash[item]++ : hash[item] = 1;
     });
     return hash;
   }
-  
-  /**
-   * Sorts the given hand
-   * @param {number[]} hand
-   * @returns {number[]} 
-   */
-  private _sortCards(hand:number[]):number[]{
-    hand.sort((a:number, b:number)=>{
-      return a-b;
-    });
-    return hand;
-  }
+
   /**
    * Compare two values and returns a winner
    * @param {number} valOne 
@@ -213,5 +268,17 @@ K9872 AJT23
     } else{
       return Winner.TIED;
     }
+  }
+  
+  /**
+   * Sorts the given hand
+   * @param {number[]} hand
+   * @returns {number[]} 
+   */
+  private _sortCards(hand:number[]):number[]{
+    hand.sort((a:number, b:number)=>{
+      return a-b;
+    });
+    return hand;
   }
 }
