@@ -17,22 +17,25 @@ export class ValidityService {
   public checkValidity(input:string):boolean{
     let arr: string[] = input.split("\n");
     let num: number = parseInt(arr.shift());
-    //Checks if a number is given as first row and within range
-    if(num === NaN || num < 1 || num > Math.pow(10,5)){
+
+    if( isNaN(num) || num < 1 || num > Math.pow(10,5)){
+      console.error("Not a number, less than 1, or greater than 10^5");
       return false;
     }
-    //Checks if # of hands matchs # of rounds
     if(arr.length !== num){
+      console.error("Number of rounds did not match number of hands")
       return false;
     }
     for(let i = 0; i < arr.length; i++){
       let hands: string[]= arr[i].match(/\S+/g);
       //Check if there is anything in row and if there is 2 hands
       if(hands === null || hands.length !== 2){
+        console.error("Round lacks two hands");
         return false;
       }
       //Check if hands are valid
       if(!this._checkHandValidity(hands[0], hands[1])){
+        console.error("Hand(s) are not valid");
         return false;
       }
     };
@@ -58,8 +61,9 @@ export class ValidityService {
 
     //Check if there are a valid amount of each character
     let hash:any = {};
+    let wildOne: number = 0;
+    let wildTwo: number = 0;
     for(let i = 0; i < 5; i++){
-      let wildOne, wildTwo: number = 0;
       for(let j = 0; j < 2; j++){
         let char: string = j===0 ? first[i] : second[i];
         if(char === '*'){

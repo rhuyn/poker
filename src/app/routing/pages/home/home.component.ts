@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   public displayResults = false;
   public results: string = '';
 
-  constructor(private _calculatorService: CalculatorService, private _validityService: ValidityService) { }
+  constructor(private _calculatorService: CalculatorService) { }
 
   ngOnInit() {
   }

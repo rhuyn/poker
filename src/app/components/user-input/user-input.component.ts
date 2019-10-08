@@ -39,6 +39,7 @@ export class UserInputComponent implements OnInit {
   }
   public get errorMessage(){
     return 'The input was incorrect.\
-     Please make sure the number of rounds matches the number of hands and the format of the hands are correct.'
+     Please make sure the number of rounds matches the number of hands and the format of the hands are correct.\
+     (See console for more details)';
   }
 }

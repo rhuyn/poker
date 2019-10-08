@@ -54,8 +54,7 @@ K9872 AJT23
     let hashTwo:any = this.getHandHash(second);
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
-    let valOne, valTwo:number;
-    let pairOne, pairTwo:number;
+    let valOne, valTwo, pairOne, pairTwo:number;
     for(let i = 0; i < keysOne.length; i++){
       if(hashOne[keysOne[i]] === 3){
         valOne = parseInt(keysOne[i]);
@@ -87,22 +86,27 @@ K9872 AJT23
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
     let valOne, valTwo:number;
-    let bigOne, bigTwo, smallOne, smallTwo: number = 0;
+    let bigOne: number = 0;
+    let bigTwo: number = 0;
+    let smallOne: number = 0;
+    let smallTwo: number = 0;
     for(let i = 0; i < keysOne.length; i++){
+      let intOne = parseInt(keysOne[i]);
+      let intTwo = parseInt(keysTwo[i]);
       if(hashOne[keysOne[i]] === 3){
-        valOne = parseInt(keysOne[i]);
+        valOne = intOne;
       } else{
-        if(bigOne < keysOne[i]){
-          bigOne = keysOne[i];
-          smallOne= bigOne;
+        if(bigOne < intOne){
+          smallOne = bigOne;
+          bigOne = intOne;
         }
       }
       if(hashTwo[keysTwo[i]] === 3){
-        valTwo = parseInt(keysTwo[i]);
+        valTwo = intTwo;
       } else{
-        if(bigTwo < keysTwo[i]){
-          bigTwo = keysTwo[i];
-          smallTwo= bigTwo;
+        if(bigTwo < intTwo){
+          smallTwo = bigTwo;
+          bigTwo = intTwo;
         }
       }
     }
@@ -150,7 +154,8 @@ K9872 AJT23
     let hashTwo:any = this.getHandHash(second);
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
-    let pairsOne, pairsTwo: number[]=[]; 
+    let pairsOne: number[] = [];
+    let pairsTwo: number[] = []; 
     let singleOne, singleTwo: number;
     keysOne.forEach((key:string)=>{
       if(hashOne[key] === 2){
@@ -192,7 +197,8 @@ K9872 AJT23
     let keysOne = Object.keys(hashOne);
     let keysTwo = Object.keys(hashTwo);
     let pairOne, pairTwo: number; 
-    let singleOne, singleTwo: number[] = [];
+    let singleOne: number[] = [];
+    let singleTwo: number[] = [];
     keysOne.forEach((key:string)=>{
       if(hashOne[key] === 2){
         pairOne = parseInt(key);

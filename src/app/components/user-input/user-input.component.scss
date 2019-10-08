@@ -27,5 +27,7 @@
 }
 .error-message{
     font: $text-font;
-    color: $error-colour;   
+    color: $error-colour;
+    width: 500px;
+    text-align: center;
 }

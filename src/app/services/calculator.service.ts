@@ -179,7 +179,7 @@ export class CalculatorService {
       return a[1]-b[1];
     });
     if(sorted[0][1] === 4){ //four of a kind
-      nums.push(parseInt(sorted[3][0]));
+      nums.push(parseInt(sorted[0][0]));
     } else if(sorted[1][1] === 3){ //three of a kind
       nums.push(parseInt(sorted[1][0]));
     } else if(sorted.length === 2){ //Two pairs
@@ -204,8 +204,15 @@ export class CalculatorService {
   private _calculateStraightOrHigh(hash:any):number{
     let result;
     let keys: string[] = Object.keys(hash);
-    keys.sort();
+    keys.sort((a:string, b:string)=>{
+      return parseInt(a) - parseInt(b);
+    });
     if(keys[3] === '14' && (parseInt(keys[2]) < 6) ){  //Handles case if 2-A
+      if(keys[2] === '4'){
+        return 5;
+      } else if(keys[0] === '3'){
+        return 2;
+      }
       let val: number;
       let prev: number = parseInt(keys[0]);
       for(let i = 1; i < keys.length; i++){
@@ -215,7 +222,7 @@ export class CalculatorService {
           prev = parseInt(keys[i]);
         }
       }
-    } else{
+    } else{ //Handles every other case
       let val: number;
       let prev: number = parseInt(keys[0]);
       for(let i = 1; i < keys.length; i++){
@@ -234,7 +241,7 @@ export class CalculatorService {
         if(keys[3] === '14'){ //if JQKA return T
           return 10;
         } else{ //else return highest number + 1
-          return parseInt(keys[3]+1); 
+          return parseInt(keys[3])+1; 
         }
       } else{ // return added number
         return val;
