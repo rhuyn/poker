@@ -4,20 +4,6 @@ import { Winner } from './constants';
 @Injectable()
 export class HandService {
   
-/*
-9
-AAAA2 KKKK2
-AAA23 KKK23
-KKK22 AAA33
-AAKK2 AAKK2
-AAKK2 AAQQ2
-AA234 KK234
-AAK23 AAQ32
-K3452 K5432
-K9872 AJT23
-*/
-
-
   /**
    * Compare two hands of the same type and return the bigger hand. Handles four of a kind and five of a kind.
    * @param {number[]} first 

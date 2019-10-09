@@ -1,4 +1,4 @@
-@import '../../../assets/styles/variables';
+@import '../../../assets/styles/shared';
 
 .container{
     display:flex;
@@ -17,4 +17,9 @@
     border-radius: 10px;
     padding: 10px;
     border: $border-grey;
+    white-space: pre;
+    @include breakpoint('tablet'){
+        width: 100px;
+        font-size: 12px;
+    }
 }

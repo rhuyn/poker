@@ -1,13 +1,20 @@
-@import '../../../../assets/styles/variables';
-
+@import '../../../../assets/styles/shared';
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
     height: 100vh;
+    min-width: 320px;
 }
 
 .header{
     font: $header-font;
+    @include breakpoint('tablet'){
+        font-size: 46px;
+    }
+    @include breakpoint('mobile'){
+        font-size: 26px;
+    }
 }
+

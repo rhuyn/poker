@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Hands, Winner } from './constants';
 import { HandService } from './hand.service';
-import { useAnimation } from '@angular/core/src/animation/dsl';
 
 @Injectable()
 export class CalculatorService {
